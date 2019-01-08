@@ -4,24 +4,35 @@
 import React from 'react';
 import Webix from './Webix';
 
-
-function getUI(columns) {
+function getUI(columns, data, select) {
   return {
-    view: "datatable",
+    view: 'datatable',
     scroll: false,
     autoheight: true,
-    select: false,
-    columns: columns,
+    select: true,
+    columns,
+    editable: true,
+    drag: true,
+    resizeColumn: true,
+    resizeRow: true,
+    pager: {
+      template: '{common.prev()} {common.pages()} {common.next()}',
+      container: 'page-here', // the container to place the pager controls into
+      size: 3, // the number of records per a page
+      group: data.length / 3, // the number of pages in the pager
+    },
     on: {
-      onAfterSelect: function (id) {
+      onAfterSelect(id) {
         select(id);
-      }
-    }
+      },
+    },
   };
 }
 
-const TableView = ({ data, columns }) => (
-  <Webix ui={getUI(columns)} data={data} />
-)
+const TableView = ({ data, columns, select }) => (
+  <div>
+    <Webix ui={getUI(columns, data, select)} data={data} />
+  </div>
+);
 
 export default TableView;

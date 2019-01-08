@@ -1,11 +1,11 @@
 import { createSelector } from 'reselect';
-import { initialState } from './reducer';
+import { initialState, copReducer } from './reducer';
 
 /**
  * Direct selector to the cop state domain
  */
 
-const selectCopDomain = state => state.get('cop', initialState);
+const selectCopDomain = state => state.get('cop', copReducer);
 
 /**
  * Other specific selectors
